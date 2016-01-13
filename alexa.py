@@ -1,11 +1,7 @@
 from main import main
-from datetime import datetime
 import fauxmo, time
 
 from debounce_handler import debounce_handler
-
-from log import LogFile
-log = LogFile().getLogger()
 
 class device_handler(debounce_handler):
     """Publishes the on/off state requested,
@@ -33,12 +29,12 @@ if __name__ == "__main__":
         fauxmo.fauxmo(trig, u, p, None, port, d)
 
     # Loop and poll for incoming Echo requests
-    log.debug("Entering fauxmo polling loop")
+    print "Entering fauxmo polling loop"
     while True:
         try:
             # Allow time for a ctrl-c to stop the process
             p.poll(100)
             time.sleep(0.1)
         except Exception, e:
-            log.critical("Critical exception: " + str(e))
+            print "Critical exception: " + str(e)
             break
