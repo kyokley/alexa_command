@@ -8,7 +8,7 @@ from celery import Celery
 SWITCH_NAME = 'mercury'
 matches = matcher(SWITCH_NAME)
 
-app = Celery('mercury_tasks', broker='amqp://guest@localhost//')
+mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost//')
 
 def main():
     # Forcing the machine to shutdown? What's the worst that can happen?
@@ -33,13 +33,18 @@ def get_switch():
 
     return found
 
-@app.task
+@mercury_task.task
 def _switch_on():
+    print "Getting switch"
     switch = get_switch()
-    time.sleep(3)
+    time.sleep(20)
+    print "Activating switch"
     switch.on()
 
 def start_up():
+    from main import _switch_on
     switch = get_switch()
     switch.off()
+    print "Making async call"
+    _switch_on.delay()
     _switch_on.delay()
