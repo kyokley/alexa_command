@@ -1,4 +1,5 @@
 import os
+import gevent
 from ouimeaux.environment import Environment
 from ouimeaux.utils import matcher
 
@@ -22,5 +23,4 @@ def start_up():
         raise Exception('Switch not found!')
 
     found.off()
-    env.wait(30)
-    found.on()
+    gevent.spawn_later(30, found.on)
