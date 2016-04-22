@@ -36,12 +36,11 @@ def get_switch():
 def _switch_on():
     print "Getting switch"
     switch = get_switch()
-    time.sleep(20)
+    time.sleep(30)
     print "Activating switch"
     switch.on()
 
 def start_up():
-    from main import _switch_on
     switch = get_switch()
     switch.off()
     print "Making async call"
