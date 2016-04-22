@@ -33,13 +33,13 @@ def get_switch():
 
     return found
 
-def start_up():
-    switch = get_switch()
-    switch.off()
-    _switch_on.delay()
-
 @app.task
 def _switch_on():
     switch = get_switch()
     time.sleep(3)
     switch.on()
+
+def start_up():
+    switch = get_switch()
+    switch.off()
+    _switch_on.delay()
