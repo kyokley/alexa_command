@@ -1,5 +1,4 @@
 import os
-import gevent
 import time
 from ouimeaux.environment import Environment
 from ouimeaux.utils import matcher
