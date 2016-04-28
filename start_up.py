@@ -1,4 +1,3 @@
-import os
 import time
 from ouimeaux.environment import Environment
 from ouimeaux.utils import matcher
@@ -8,10 +7,6 @@ SWITCH_NAME = 'mercury'
 matches = matcher(SWITCH_NAME)
 
 mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost//')
-
-def shutdown():
-    # Forcing the machine to shutdown? What's the worst that can happen?
-    os.system('shutdown -h now')
 
 def get_switch():
     env = Environment()

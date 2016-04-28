@@ -1,18 +1,14 @@
-from main import start_up
-from flask import (Flask,
-                   request,
-                   )
-from settings import ALEXA_AUTH
+from shutdown import shutdown
+from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/mercury', methods=['POST'])
 def mercury():
-    data = request.get_json()
-    if data['pass'] == ALEXA_AUTH:
-        start_up()
+    try:
+        shutdown()
         return 'Success', 200
-    else:
+    except:
         return 'FAIL', 400
 
 if __name__ == '__main__':
