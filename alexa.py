@@ -1,5 +1,6 @@
-from main import main
+from start_up import start_up
 import fauxmo, time
+import requests
 
 from debounce_handler import debounce_handler
 
@@ -7,11 +8,15 @@ class device_handler(debounce_handler):
     """Publishes the on/off state requested,
        and the IP address of the Echo making the request.
     """
-    TRIGGERS = {"mercury": 52000}
+    TRIGGERS = {"mercury": 52001}
 
     def act(self, client_address, state):
-        if state is False:
-            main()
+        if state:
+            start_up()
+        else:
+            # Send POST to mercury to kick off shutdown
+            resp = requests.post('http://192.168.1.109')
+            resp.raise_for_status()
         print "State", state, "from client @", client_address
         return True
 
