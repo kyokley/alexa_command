@@ -9,7 +9,7 @@ matches = matcher(SWITCH_NAME)
 
 mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost//')
 
-def main():
+def shutdown():
     # Forcing the machine to shutdown? What's the worst that can happen?
     os.system('shutdown -h now')
 
