@@ -15,7 +15,7 @@ class device_handler(debounce_handler):
             start_up()
         else:
             # Send POST to mercury to kick off shutdown
-            resp = requests.post('http://192.168.1.109')
+            resp = requests.post('http://192.168.1.109:5010/mercury')
             resp.raise_for_status()
         print "State", state, "from client @", client_address
         return True
