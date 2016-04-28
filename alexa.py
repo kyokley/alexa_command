@@ -16,14 +16,15 @@ class device_handler(debounce_handler):
                 start_up()
             else:
                 # Send POST to mercury to kick off shutdown
-                requests.post('http://192.168.1.109:5010/mercury')
-        except:
-            pass
+                requests.post('http://192.168.1.109:5010/mercury', timeout=1)
+        except Exception as e:
+            print e
         print "State", state, "from client @", client_address
         return True
 
 if __name__ == "__main__":
     # Startup the fauxmo server
+    print "Starting up!"
     fauxmo.DEBUG = True
     p = fauxmo.poller()
     u = fauxmo.upnp_broadcast_responder()
