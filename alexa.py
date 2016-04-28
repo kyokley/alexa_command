@@ -11,12 +11,14 @@ class device_handler(debounce_handler):
     TRIGGERS = {"mercury": 52001}
 
     def act(self, client_address, state):
-        if state:
-            start_up()
-        else:
-            # Send POST to mercury to kick off shutdown
-            resp = requests.post('http://192.168.1.109:5010/mercury')
-            resp.raise_for_status()
+        try:
+            if state:
+                start_up()
+            else:
+                # Send POST to mercury to kick off shutdown
+                requests.post('http://192.168.1.109:5010/mercury')
+        except:
+            pass
         print "State", state, "from client @", client_address
         return True
 
