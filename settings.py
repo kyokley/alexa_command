@@ -1,3 +1,4 @@
+CELERY_VHOST = '/'
 ALEXA_AUTH = 'secretsecretsecret'
 
 try:

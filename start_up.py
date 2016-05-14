@@ -2,11 +2,12 @@ import time
 from ouimeaux.environment import Environment
 from ouimeaux.utils import matcher
 from celery import Celery
+from settings import CELERY_VHOST
 
 SWITCH_NAME = 'mercury'
 matches = matcher(SWITCH_NAME)
 
-mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost//')
+mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost/%s' % CELERY_VHOST)
 
 def get_switch():
     env = Environment()
@@ -39,5 +40,4 @@ def start_up():
     switch = get_switch()
     switch.off()
     print "Making async call"
-    _switch_on.delay()
     _switch_on.delay()
