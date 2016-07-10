@@ -4,7 +4,7 @@ from ouimeaux.utils import matcher
 from celery import Celery
 from settings import CELERY_VHOST
 
-SWITCH_NAME = 'mercury'
+SWITCH_NAME = 'Real mercury outlet'
 matches = matcher(SWITCH_NAME)
 
 mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost/%s' % CELERY_VHOST)
