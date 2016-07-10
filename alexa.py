@@ -41,12 +41,12 @@ if __name__ == "__main__":
         fauxmo.fauxmo(trig, u, p, None, port, d)
 
     # Loop and poll for incoming Echo requests
-    print "Entering fauxmo polling loop"
+    log("Entering fauxmo polling loop")
     while True:
         try:
             # Allow time for a ctrl-c to stop the process
             p.poll(100)
             time.sleep(0.1)
         except Exception, e:
-            print "Critical exception: " + str(e)
+            log("Critical exception: " + str(e))
             break
