@@ -1,8 +1,13 @@
 from start_up import start_up
 import fauxmo, time
 import requests
+from datetime import datetime
 
 from debounce_handler import debounce_handler
+
+def log(message):
+    print '%s: %s' % (datetime.now().strftime('%d-%b-%Y %H:%M'),
+                      message)
 
 class device_handler(debounce_handler):
     """Publishes the on/off state requested,
@@ -12,12 +17,14 @@ class device_handler(debounce_handler):
 
     def act(self, client_address, state):
         if state:
+            log('Got message to send start up')
             start_up()
         else:
             # Send POST to mercury to kick off shutdown
+            log('Got message to send shutdown')
             resp = requests.post('http://192.168.1.109')
             resp.raise_for_status()
-        print "State", state, "from client @", client_address
+        log("State %s from client @ %s" % (state, client_address))
         return True
 
 if __name__ == "__main__":
