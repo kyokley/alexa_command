@@ -1,6 +1,7 @@
 from start_up import start_up
 import fauxmo, time
 import requests
+from settings import MERCURY_HOST, MERCURY_PORT
 
 from debounce_handler import debounce_handler
 
@@ -16,7 +17,8 @@ class device_handler(debounce_handler):
                 start_up()
             else:
                 # Send POST to mercury to kick off shutdown
-                requests.post('http://192.168.1.109:5010/mercury', timeout=1)
+                requests.post('http://%(host)s:%(port)s/mercury' % {'host': MERCURY_HOST,
+                                                                    'port': MERCURY_PORT}, timeout=1)
         except Exception as e:
             print e
         print "State", state, "from client @", client_address
