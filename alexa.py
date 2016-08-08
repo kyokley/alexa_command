@@ -23,7 +23,8 @@ class device_handler(debounce_handler):
                 start_up()
             else:
                 # Send POST to mercury to kick off shutdown
-                log('Got message to send shutdown')
+                log('Got message to send shutdown to %(host)s:%(port)s' % {'host': MERCURY_HOST,
+                                                                           'port': MERCURY_PORT})
                 resp = requests.post('http://%(host)s:%(port)s/mercury' % {'host': MERCURY_HOST,
                                                                            'port': MERCURY_PORT}, timeout=1)
                 resp.raise_for_status()
