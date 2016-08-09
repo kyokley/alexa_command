@@ -54,8 +54,11 @@ SETUP_XML = """<?xml version="1.0"?>
 """
 
 
-def dbg(msg):
+def dbg(msg, *args):
     logging.debug(msg)
+    if args:
+        for arg in args:
+            logging.debug(arg)
 
 
 # A simple utility class to wait for incoming data to be
@@ -273,7 +276,8 @@ class upnp_broadcast_responder(object):
 
     def init_socket(self):
         ok = True
-        self.ip = '239.255.255.250'
+        #self.ip = '239.255.255.250'
+        self.ip = '0.0.0.0'
         self.port = 1900
         try:
             #This is needed to join a multicast group
