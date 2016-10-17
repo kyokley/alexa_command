@@ -7,7 +7,7 @@ from settings import CELERY_VHOST
 SWITCH_NAME = 'Real mercury outlet'
 matches = matcher(SWITCH_NAME)
 
-mercury_task = Celery('mercury_tasks', backend='redis://localhost', broker='amqp://guest@localhost/%s' % CELERY_VHOST)
+mercury_task = Celery('start_up', backend='redis://localhost', broker='amqp://guest@localhost/%s' % CELERY_VHOST)
 
 def get_switch():
     env = Environment()
@@ -41,3 +41,6 @@ def start_up():
     switch.off()
     print "Making async call"
     _switch_on.delay()
+
+if __name__ == '__main__':
+    start_up()
