@@ -1,5 +1,6 @@
 import time
 
+
 class debounce_handler(object):
     """Use this handler to keep multiple Amazon Echo devices from reacting to
        the same voice command.
@@ -23,15 +24,14 @@ class debounce_handler(object):
         pass
 
     def debounce(self):
-        """If multiple Echos are present, the one most likely to respond first
-           is the one that can best hear the speaker... which is the closest one.
-           Adding a refractory period to handlers keeps us from worrying about
-           one Echo overhearing a command meant for another one.
+        """
+        If multiple Echos are present, the one most likely to respond first
+        is the one that can best hear the speaker... which is the closest one.
+        Adding a refractory period to handlers keeps us from worrying about
+        one Echo overhearing a command meant for another one.
         """
         if (time.time() - self.lastEcho) < self.DEBOUNCE_SECONDS:
             return True
 
         self.lastEcho = time.time()
         return False
-
-

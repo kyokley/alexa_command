@@ -5,5 +5,5 @@ MERCURY_PORT = 5000
 
 try:
     from local_settings import *
-except:
+except ImportError:
     pass
