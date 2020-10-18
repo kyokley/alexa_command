@@ -8,7 +8,6 @@ SWITCH_NAME = 'Real mercury outlet'
 matches = matcher(SWITCH_NAME)
 
 mercury_task = Celery('start_up',
-                      backend='redis://localhost',
                       broker='amqp://guest@localhost/%s' % CELERY_VHOST)
 
 
@@ -41,12 +40,18 @@ def _switch_on():
     switch.on()
 
 
-def start_up():
+def start_up(use_async=True):
     switch = get_switch()
     switch.off()
-    print("Making async call")
-    _switch_on.delay()
+
+    if use_async:
+        print("Making async call")
+        _switch_on.delay()
+    else:
+        print("Making synchronous call. Could take up to a minute...")
+        _switch_on()
+        print('done')
 
 
 if __name__ == '__main__':
-    start_up()
+    start_up(use_async=False)
